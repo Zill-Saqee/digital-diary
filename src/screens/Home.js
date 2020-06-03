@@ -19,17 +19,11 @@ const Home = ({navigation}) => {
         Create an account to save your daily routine and access it from
         anywhere. It's free forever
       </Text>
-      <Button
-        info
-        full
-        onPress={() => navigation.navigate('Login')}>
+      <Button info full onPress={() => navigation.navigate('Login')}>
         <Text> Login </Text>
       </Button>
       <Text>OR</Text>
-      <Button
-        info
-        full
-        onPress={() => navigation.navigate('SignUp')}>
+      <Button info full onPress={() => navigation.navigate('SignUp')}>
         <Text> Sign Up </Text>
       </Button>
     </View>

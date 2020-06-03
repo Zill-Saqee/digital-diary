@@ -1,4 +1,5 @@
 import React from 'react';
+import {Root} from 'native-base';
 import 'react-native-gesture-handler';
 import {Text, View, StyleSheet, Button} from 'react-native';
 import {mainColor, mainTextColor} from './src/constants/UIConstants';
@@ -26,16 +27,22 @@ const Stack = createStackNavigator();
 
 function HelloWorldApp() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Home" component={Home} options={{title: 'home'}} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Root>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{title: 'home'}}
+          />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Root>
   );
 }
 export default HelloWorldApp;

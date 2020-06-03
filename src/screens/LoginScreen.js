@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import validator from 'validator';
 import {
   Container,
   Header,
@@ -12,13 +13,44 @@ import {
   Left,
   Right,
   Body,
-  Title,
   Subtitle,
   Icon,
+  Toast,
 } from 'native-base';
 export default class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      Password: '',
+    };
+  }
+
+  validate = () => {
+    const {email, password} = this.state;
+    if (validator.isEmpty(email) || validator.isEmpty(password)) {
+      Toast.show({
+        text: 'Please provide complete information',
+        buttonText: 'understood',
+        duration: 50000,
+        type: 'warning',
+      });
+      return;
+    }
+    if (!validator.isEmail(email)) {
+      Toast.show({
+        text: 'Please provide valid email',
+        buttonText: 'understood',
+        duration: 50000,
+        type: 'warning',
+      });
+      return;
+    }
+  };
+
   render() {
-      const {navigation} = this.props;
+    const {email, password} = this.state;
+    const {navigation} = this.props;
     return (
       <Container>
         <Header>
@@ -36,14 +68,28 @@ export default class LoginScreen extends Component {
         <Content>
           <Form>
             <Item stackedLabel>
-              <Label>Username</Label>
-              <Input />
+              <Label>Email</Label>
+              <Input
+                value={email}
+                onChangeText={email =>
+                  this.setState({
+                    email,
+                  })
+                }
+              />
             </Item>
             <Item stackedLabel last>
               <Label>Password</Label>
-              <Input />
+              <Input
+                value={password}
+                onChangeText={password =>
+                  this.setState({
+                    password,
+                  })
+                }
+              />
             </Item>
-            <Button full info>
+            <Button full info onPress={() => this.validate()}>
               <Text>Sign In</Text>
             </Button>
           </Form>
