@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from './src/screens/Home';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
+import AddRoutineScreen from './src/screens/AddRoutineScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +41,7 @@ function HelloWorldApp() {
           />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="AddRoutine" component={AddRoutineScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Root>

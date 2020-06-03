@@ -38,7 +38,7 @@ export default class SignUpScreen extends Component {
       Toast.show({
         text: 'Please provide complete information',
         buttonText: 'understood',
-        duration: 50000,
+        duration: 5000,
         type: 'warning',
       });
       return;

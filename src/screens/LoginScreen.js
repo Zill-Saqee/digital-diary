@@ -32,7 +32,7 @@ export default class LoginScreen extends Component {
       Toast.show({
         text: 'Please provide complete information',
         buttonText: 'understood',
-        duration: 50000,
+        duration: 5000,
         type: 'warning',
       });
       return;
@@ -89,7 +89,13 @@ export default class LoginScreen extends Component {
                 }
               />
             </Item>
-            <Button full info onPress={() => this.validate()}>
+            <Button
+              full
+              info
+              onPress={() => {
+                this.validate();
+                navigation.navigate('AddRoutine');
+              }}>
               <Text>Sign In</Text>
             </Button>
           </Form>
