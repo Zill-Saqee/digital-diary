@@ -84,26 +84,38 @@ import {
   Body,
   Right,
   Button,
+  Title,
   Icon,
 } from 'native-base';
-export default class ListThumbnailExample extends Component {
+export default class PreviousRoutine extends Component {
   render() {
     const {navigation} = this.props;
     return (
       <Container>
         <Header>
-          <Left>
-            <Text style={{color: 'white'}}>All Your Previous Routine</Text>
-          </Left>
+          <Body>
+            <Title>All Your Routine</Title>
+          </Body>
           <Right>
-            <Icon name="plus" />
+            {/* <Button transparent>
+              <Icon name="search" />
+            </Button> */}
+            <Button transparent>
+              <Icon
+                onPress={() => navigation.navigate('AddRoutine')}
+                name="add"
+              />
+            </Button>
+            {/* <Button transparent>
+              <Icon name="more" />
+            </Button> */}
           </Right>
         </Header>
         <Content>
           <List>
             <ListItem thumbnail>
               <Body>
-                <Text>Sankhadeep</Text>
+                <Text>Sankhadeep 123</Text>
                 <Text note numberOfLines={1}>
                   Its time to build a difference . .
                 </Text>
@@ -112,7 +124,9 @@ export default class ListThumbnailExample extends Component {
                 <Button transparent>
                   <Text
                     onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
+                      navigation.navigate('PreviousRoutineDetail', {
+                        id: '123',
+                      })
                     }>
                     View
                   </Text>

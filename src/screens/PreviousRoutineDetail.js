@@ -17,7 +17,8 @@ import {
 } from 'native-base';
 export default class PreviousRoutineDetail extends Component {
   render() {
-    const {navigation} = this.props;
+    const {navigation, route} = this.props;
+    console.log(route.params.id);
     return (
       <Container>
         <Header>
@@ -64,16 +65,6 @@ export default class PreviousRoutineDetail extends Component {
                   here text here text here text here text here Your text here
                   text here text here text here text here text here text here
                   text here text here text here text here text here text here
-                  text here text here text here text here text here text here
-                  text here text here text here text here Your text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here Your text here text here
-                  text here text here text here text here text here text here
-                  text here text here text here text here text here text here
-                  text here text here text here text here text here text here
-                  text here text here text here
                 </Text>
               </Body>
             </CardItem>

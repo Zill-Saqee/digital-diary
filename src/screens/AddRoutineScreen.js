@@ -13,6 +13,9 @@ import {
   Body,
   Subtitle,
   Right,
+  Item,
+  Label,
+  Input,
 } from 'native-base';
 export default class AddRoutineScreen extends Component {
   render() {
@@ -34,9 +37,13 @@ export default class AddRoutineScreen extends Component {
         <View>
           <Text>Add Your Today's Amazing Story</Text>
         </View>
-        <Content padder>
+        <Content>
           <Form>
-            <Textarea rowSpan={5} bordered placeholder="Textarea" />
+            <Item floatingLabel last>
+              <Label>Title</Label>
+              <Input bordered />
+            </Item>
+            <Textarea rowSpan={5} bordered placeholder="Your Story" />
             <Button full info>
               <Text padder>Add</Text>
             </Button>
