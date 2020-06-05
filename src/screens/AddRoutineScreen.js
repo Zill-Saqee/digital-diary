@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Text as CustomText} from 'react-native';
 import {
   Container,
   View,
@@ -35,20 +36,22 @@ export default class AddRoutineScreen extends Component {
           <Right />
         </Header>
         <View>
-          <Text>Add Your Today's Amazing Story</Text>
+          <CustomText style={{fontSize: 22 , marginBottom : -22}}>
+            Add Your Today's Amazing Story
+          </CustomText>
         </View>
-        <Content>
-          <Form>
-            <Item floatingLabel last>
-              <Label>Title</Label>
-              <Input bordered />
-            </Item>
-            <Textarea rowSpan={5} bordered placeholder="Your Story" />
-            <Button full info>
-              <Text padder>Add</Text>
-            </Button>
-          </Form>
-        </Content>
+        {/* <Content> */}
+        <Form>
+          <Item floatingLabel last>
+            <Label>Title</Label>
+            <Input bordered />
+          </Item>
+          <Textarea rowSpan={5} bordered placeholder="Your Story" />
+          <Button full info>
+            <Text padder>Add</Text>
+          </Button>
+        </Form>
+        {/* </Content> */}
       </Container>
     );
   }
