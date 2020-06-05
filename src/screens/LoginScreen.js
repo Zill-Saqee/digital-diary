@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import validator from 'validator';
+import {loginUser} from '../redux/actions/authActions';
 import {
   Container,
   Header,
@@ -17,13 +19,39 @@ import {
   Icon,
   Toast,
 } from 'native-base';
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      Password: '',
+      email: 'abc@gmail.com',
+      password: 'abc@gmail.com',
+      loggingIn: false,
     };
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const {auth} = nextProps;
+    console.log('props ', nextProps.auth);
+    if (auth.status) {
+      this.setState({
+        loggingIn: false,
+      });
+      this.props.navigation.push('AllRoutine');
+    } else if (auth.status === 'error') {
+      this.setState({
+        loggingIn: false,
+      });
+      Toast.show({
+        text: 'Something went wrong',
+        buttonText: 'ok',
+        duration: 50000,
+        type: 'danger',
+      });
+    } else {
+      this.setState({
+        loggingIn: false,
+      });
+    }
   }
 
   validate = () => {
@@ -31,25 +59,37 @@ export default class LoginScreen extends Component {
     if (validator.isEmpty(email) || validator.isEmpty(password)) {
       Toast.show({
         text: 'Please provide complete information',
-        buttonText: 'understood',
+        buttonText: 'ok',
         duration: 5000,
         type: 'warning',
       });
-      return;
+      return false;
     }
     if (!validator.isEmail(email)) {
       Toast.show({
         text: 'Please provide valid email',
-        buttonText: 'understood',
+        buttonText: 'ok',
         duration: 50000,
         type: 'warning',
       });
-      return;
+      return false;
+    }
+    return true;
+  };
+
+  SignIn = () => {
+    const {email, password} = this.state;
+    if (this.validate()) {
+      this.setState({
+        loggingIn: true,
+      });
+      console.log(email, password, 'ui');
+      this.props.loginUser(email, password);
     }
   };
 
   render() {
-    const {email, password} = this.state;
+    const {email, password, loggingIn} = this.state;
     const {navigation} = this.props;
     return (
       <Container>
@@ -92,9 +132,9 @@ export default class LoginScreen extends Component {
             <Button
               block
               info
+              disabled={loggingIn}
               onPress={() => {
-                this.validate();
-                navigation.navigate('AllRoutine');
+                this.SignIn();
               }}>
               <Text>Sign In</Text>
             </Button>
@@ -104,3 +144,12 @@ export default class LoginScreen extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+export default connect(
+  mapStateToProps,
+  {loginUser},
+)(LoginScreen);
