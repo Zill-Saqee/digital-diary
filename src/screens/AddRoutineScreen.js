@@ -7,13 +7,32 @@ import {
   Form,
   Text,
   Button,
+  Header,
+  Left,
+  Icon,
+  Body,
+  Subtitle,
+  Right,
 } from 'native-base';
 export default class AddRoutineScreen extends Component {
   render() {
+    const {navigation} = this.props;
     return (
       <Container>
+        <Header>
+          <Left>
+            <Button transparent onPress={() => navigation.goBack()}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            {/* <Title>Title</Title> */}
+            <Subtitle>Back</Subtitle>
+          </Body>
+          <Right />
+        </Header>
         <View>
-          <Text>Add Your Amazing Story</Text>
+          <Text>Add Your Today's Amazing Story</Text>
         </View>
         <Content padder>
           <Form>

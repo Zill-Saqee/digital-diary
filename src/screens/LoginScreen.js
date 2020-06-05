@@ -90,11 +90,11 @@ export default class LoginScreen extends Component {
               />
             </Item>
             <Button
-              full
+              block
               info
               onPress={() => {
                 this.validate();
-                navigation.navigate('AddRoutine');
+                navigation.navigate('AllRoutine');
               }}>
               <Text>Sign In</Text>
             </Button>

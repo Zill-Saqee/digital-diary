@@ -104,7 +104,7 @@ export default class SignUpScreen extends Component {
                 }
               />
             </Item>
-            <Button full info onPress={this.validate()}>
+            <Button block info onPress={this.validate()}>
               <Text>Sign Up</Text>
             </Button>
           </Form>

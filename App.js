@@ -9,6 +9,8 @@ import Home from './src/screens/Home';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import AddRoutineScreen from './src/screens/AddRoutineScreen';
+import PreviousRoutine from './src/screens/PreviousRoutine';
+import PreviousRoutineDetail from './src/screens/PreviousRoutineDetail';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +43,12 @@ function HelloWorldApp() {
           />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="AllRoutine" component={PreviousRoutine} />
           <Stack.Screen name="AddRoutine" component={AddRoutineScreen} />
+          <Stack.Screen
+            name="PreviousRoutineDetail"
+            component={PreviousRoutineDetail}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Root>
