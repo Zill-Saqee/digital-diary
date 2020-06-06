@@ -91,7 +91,7 @@ import {
 } from 'native-base';
 class PreviousRoutine extends Component {
   render() {
-    const {navigation} = this.props;
+    const {navigation, loggedIn} = this.props;
     return (
       <Container>
         <Header>
@@ -322,7 +322,12 @@ class PreviousRoutine extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.auth.status,
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   {logOutUser},
 )(PreviousRoutine);

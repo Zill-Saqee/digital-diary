@@ -53,6 +53,12 @@ class SignUpScreen extends Component {
         signingUp: false,
       });
     } else {
+      Toast.show({
+        text: 'Something went wrong',
+        buttonText: 'ok',
+        duration: 5000,
+        type: 'danger',
+      });
       this.setState({
         signingUp: false,
       });

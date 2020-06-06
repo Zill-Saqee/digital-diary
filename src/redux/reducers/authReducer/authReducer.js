@@ -27,7 +27,8 @@ export default function(state = initState, action) {
       break;
     case LOGIN_FAILED:
       state = {
-        status: 'error',
+        status: false,
+        uid: null,
       };
       break;
     case SIGN_UP_SUCCESS:
@@ -38,7 +39,7 @@ export default function(state = initState, action) {
       break;
     case SIGN_UP_FAILED:
       state = {
-        status: 'error',
+        status: false,
       };
       break;
     case LOG_OUT_SUCCESS:

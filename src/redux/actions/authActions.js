@@ -33,6 +33,7 @@ export const signUpUser = (email, password, name) => {
           });
         })
         .catch(error => {
+          console.log(error, 'err1 signup');
           dispatch({
             type: SIGN_UP_FAILED,
           });
@@ -66,6 +67,7 @@ export const loginUser = (email, password) => {
       auth()
         .signInWithEmailAndPassword(email, password)
         .then(res => {
+          console.log(res, 'success');
           console.log(res.user.uid);
           console.log('User signed in succesfully!');
           dispatch({
@@ -76,12 +78,16 @@ export const loginUser = (email, password) => {
           });
         })
         .catch(error => {
-          console.log(error);
+          console.log(error, 'err1');
           dispatch({
             type: LOGIN_FAILED,
           });
         });
     } catch (error) {
+      console.log(error, 'err2');
+      dispatch({
+        type: LOGIN_FAILED,
+      });
       console.log(error.toString(error));
     }
   };

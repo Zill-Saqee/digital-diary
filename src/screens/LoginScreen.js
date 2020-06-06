@@ -38,7 +38,7 @@ class LoginScreen extends Component {
         loggingIn: false,
       });
       // this.props.navigation.push('AllRoutine');
-    } else if (auth.status === 'error') {
+    } else if (auth.status === 'error' || auth.status === false) {
       this.setState({
         loggingIn: false,
       });
