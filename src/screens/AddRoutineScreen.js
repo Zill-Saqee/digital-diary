@@ -32,6 +32,28 @@ class AddRoutineScreen extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {added, adding} = nextProps;
+    console.log(added, 'Add Routine');
+    if (!adding) {
+      this.setState({
+        adding: false,
+      });
+    }
+    if (added) {
+      this.setState({
+        title: '',
+        description: '',
+      });
+      Toast.show({
+        text: 'Added successfully',
+        buttonText: 'ok',
+        duration: 2000,
+        type: 'success',
+      });
+    }
+  }
+
   validate = () => {
     const {title, description} = this.state;
     if (title.length < 5) {
@@ -57,11 +79,12 @@ class AddRoutineScreen extends Component {
 
   addNewRoutine = () => {
     const {title, description} = this.state;
+    const {uid} = this.props;
     if (this.validate()) {
       this.setState({
         adding: true,
       });
-      this.props.addRoutine();
+      this.props.addRoutine({title, description}, uid);
     }
   };
 
@@ -117,7 +140,14 @@ class AddRoutineScreen extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    uid: state.auth.uid,
+    adding: state.routine.adding,
+    added: state.routine.added,
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   {addRoutine},
 )(AddRoutineScreen);
