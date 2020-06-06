@@ -7,3 +7,7 @@ export const SIGN_UP_FAILED = 'signUpFailed';
 
 export const ADD_ROUTINE_SUCCESS = 'addRoutineSuccess';
 export const ADD_ROUTINE_FAILED = 'addRoutineFailed';
+
+export const GET_ALL_ROUTINE = 'getAllRoutine';
+export const GET_ALL_ROUTINE_SUCCESS = 'getAllRoutineSuccess';
+export const GET_ALL_ROUTINE_FAILED = 'getAllRoutineFailed';

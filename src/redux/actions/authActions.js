@@ -23,7 +23,9 @@ export const signUpUser = (email, password, name) => {
             .set({
               name: name,
               email: email,
-              createdAt: createdAt,
+              routine: {
+                available: false,
+              },
             });
           dispatch({
             type: SIGN_UP_SUCCESS,

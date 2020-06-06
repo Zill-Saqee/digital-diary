@@ -73,7 +73,10 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
 import {logOutUser} from '../redux/actions/authActions';
+import {getAllRoutine} from '../redux/actions/routineActions';
 import {
   Container,
   Header,
@@ -90,9 +93,33 @@ import {
   Icon,
 } from 'native-base';
 class PreviousRoutine extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      routineData: null,
+    };
+  }
+
+  componentDidMount() {
+    const {uid} = this.props;
+    this.props.getAllRoutine(uid);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {routine} = nextProps;
+    console.log(routine, 'nextprops');
+    if (routine.fetching === false) {
+      this.setState({
+        loading: false,
+        routineData: routine.routineData,
+      });
+    }
+  }
+
   render() {
     const {navigation, loggedIn, uid} = this.props;
-    console.log(uid, 'Previous Routine');
+    const {loading, routineData} = this.state;
     return (
       <Container>
         <Header>
@@ -115,210 +142,220 @@ class PreviousRoutine extends Component {
             </Button> */}
           </Right>
         </Header>
-        <Content>
-          <List>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep 123</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail', {
-                        id: '123',
-                      })
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-            <ListItem thumbnail>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>
-                  Its time to build a difference . .
-                </Text>
-              </Body>
-              <Right>
-                <Button transparent>
-                  <Text
-                    onPress={() =>
-                      navigation.navigate('PreviousRoutineDetail')
-                    }>
-                    View
-                  </Text>
-                </Button>
-              </Right>
-            </ListItem>
-          </List>
-        </Content>
+        {!loading === true ? (
+          <>
+            {routineData.available === true ? (
+              <Content>
+                <List>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep 123</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail', {
+                              id: '123',
+                            })
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                  <ListItem thumbnail>
+                    <Body>
+                      <Text>Sankhadeep</Text>
+                      <Text note numberOfLines={1}>
+                        Its time to build a difference . .
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button transparent>
+                        <Text
+                          onPress={() =>
+                            navigation.navigate('PreviousRoutineDetail')
+                          }>
+                          View
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                </List>
+              </Content>
+            ) : (
+              <Text>You have not saved any rouine yet</Text>
+            )}
+          </>
+        ) : (
+          <Text>loading</Text>
+        )}
       </Container>
     );
   }
@@ -327,9 +364,10 @@ const mapStateToProps = state => {
   return {
     loggedIn: state.auth.status,
     uid: state.auth.uid,
+    routine: state.routine,
   };
 };
 export default connect(
   mapStateToProps,
-  {logOutUser},
+  {logOutUser, getAllRoutine},
 )(PreviousRoutine);
