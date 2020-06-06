@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import {useSelector} from 'react-redux';
 import {View, Text, StyleSheet} from 'react-native';
 import {Button} from 'native-base';
-import database from '@react-native-firebase/database';
+import PreviousRoutine from './PreviousRoutine';
 
 const Home = ({navigation}) => {
-  useEffect(() => {
-    database()
-      .ref('/routine')
-      .once('value')
-      .then(snapshot => {
-        console.log('User data: ', snapshot.val());
-      });
-  });
+  const authenticated = useSelector(state => state.auth.status);
+
+  if (authenticated) {
+    return <PreviousRoutine />;
+  }
+
   return (
     <View style={styles.homeContainer}>
       <Text style={styles.title}>Welcome To Digital Diary</Text>

@@ -30,13 +30,14 @@ class LoginScreen extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log('login screen before');
     const {auth} = nextProps;
     console.log('props ', nextProps.auth);
-    if (auth.status) {
+    if (auth.status === true) {
       this.setState({
         loggingIn: false,
       });
-      this.props.navigation.push('AllRoutine');
+      // this.props.navigation.push('AllRoutine');
     } else if (auth.status === 'error') {
       this.setState({
         loggingIn: false,
@@ -44,7 +45,7 @@ class LoginScreen extends Component {
       Toast.show({
         text: 'Something went wrong',
         buttonText: 'ok',
-        duration: 50000,
+        duration: 5000,
         type: 'danger',
       });
     } else {

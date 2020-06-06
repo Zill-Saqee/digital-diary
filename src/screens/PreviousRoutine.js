@@ -72,6 +72,8 @@
 // });
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {logOutUser} from '../redux/actions/authActions';
 import {
   Container,
   Header,
@@ -87,7 +89,7 @@ import {
   Title,
   Icon,
 } from 'native-base';
-export default class PreviousRoutine extends Component {
+class PreviousRoutine extends Component {
   render() {
     const {navigation} = this.props;
     return (
@@ -105,6 +107,7 @@ export default class PreviousRoutine extends Component {
                 onPress={() => navigation.navigate('AddRoutine')}
                 name="add"
               />
+              <Text onPress={this.props.logOutUser}>Logout</Text>
             </Button>
             {/* <Button transparent>
               <Icon name="more" />
@@ -319,3 +322,7 @@ export default class PreviousRoutine extends Component {
     );
   }
 }
+export default connect(
+  null,
+  {logOutUser},
+)(PreviousRoutine);

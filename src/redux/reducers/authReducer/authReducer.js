@@ -1,4 +1,11 @@
-import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILED} from '../../constants';
+import {
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  LOG_OUT_SUCCESS,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILED,
+} from '../../constants';
 
 let initState = {
   status: false,
@@ -22,6 +29,20 @@ export default function(state = initState, action) {
       state = {
         status: 'error',
       };
+      break;
+    case SIGN_UP_SUCCESS:
+      state = {
+        status: true,
+        uid: action.payload._id,
+      };
+      break;
+    case SIGN_UP_FAILED:
+      state = {
+        status: 'error',
+      };
+      break;
+    case LOG_OUT_SUCCESS:
+      state = initState;
       break;
     default:
       return state;
