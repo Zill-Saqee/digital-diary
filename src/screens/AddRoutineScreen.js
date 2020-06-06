@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Text as CustomText} from 'react-native';
+import {connect} from 'react-redux';
+import {Text as CustomText, YellowBox} from 'react-native';
+YellowBox.ignoreWarnings(['Warning:']);
+import {addRoutine} from '../redux/actions/routineActions';
 import {
   Container,
   View,
@@ -17,9 +20,53 @@ import {
   Item,
   Label,
   Input,
+  Toast,
 } from 'native-base';
-export default class AddRoutineScreen extends Component {
+class AddRoutineScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      adding: false,
+      title: 't',
+      description: 'd',
+    };
+  }
+
+  validate = () => {
+    const {title, description} = this.state;
+    if (title.length < 5) {
+      Toast.show({
+        text: 'Title is too short',
+        buttonText: 'ok',
+        duration: 2000,
+        type: 'info',
+      });
+      return false;
+    }
+    if (description.length < 10) {
+      Toast.show({
+        text: 'Description is too short',
+        buttonText: 'ok',
+        duration: 2000,
+        type: 'info',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  addNewRoutine = () => {
+    const {title, description} = this.state;
+    if (this.validate()) {
+      this.setState({
+        adding: true,
+      });
+      this.props.addRoutine();
+    }
+  };
+
   render() {
+    const {title, description, adding} = this.state;
     const {navigation} = this.props;
     return (
       <Container>
@@ -36,7 +83,7 @@ export default class AddRoutineScreen extends Component {
           <Right />
         </Header>
         <View>
-          <CustomText style={{fontSize: 22 , marginBottom : -22}}>
+          <CustomText style={{fontSize: 22, marginBottom: -22}}>
             Add Your Today's Amazing Story
           </CustomText>
         </View>
@@ -44,10 +91,24 @@ export default class AddRoutineScreen extends Component {
         <Form>
           <Item floatingLabel last>
             <Label>Title</Label>
-            <Input bordered />
+            <Input
+              bordered
+              value={title}
+              onChangeText={title => this.setState({title})}
+            />
           </Item>
-          <Textarea rowSpan={5} bordered placeholder="Your Story" />
-          <Button full info>
+          <Textarea
+            rowSpan={5}
+            bordered
+            value={description}
+            onChangeText={description =>
+              this.setState({
+                description,
+              })
+            }
+            placeholder="Your Story"
+          />
+          <Button full info disabled={adding} onPress={this.addNewRoutine}>
             <Text padder>Add</Text>
           </Button>
         </Form>
@@ -56,3 +117,7 @@ export default class AddRoutineScreen extends Component {
     );
   }
 }
+export default connect(
+  null,
+  {addRoutine},
+)(AddRoutineScreen);
