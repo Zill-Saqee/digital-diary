@@ -30,9 +30,8 @@ class LoginScreen extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log('login screen before');
     const {auth} = nextProps;
-    console.log('props ', nextProps.auth);
+    console.log('login props ', nextProps.auth);
     if (auth.status === true) {
       this.setState({
         loggingIn: false,

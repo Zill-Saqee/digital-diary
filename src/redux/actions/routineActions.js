@@ -1,5 +1,6 @@
 import database from '@react-native-firebase/database';
 import firestore from '@react-native-firebase/firestore';
+import store from '../store';
 import {
   ADD_ROUTINE_SUCCESS,
   ADD_ROUTINE_FAILED,
@@ -15,21 +16,33 @@ export const addRoutine = ({title, description}, uid) => {
     dispatch({
       type: ADD_ROUTINE,
     });
-    firestore()
-      .collection('routineCollection')
-      .add({
-        title,
-        description,
-        userId: uid,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        console.log('New Routine added!');
-        dispatch({
-          type: ADD_ROUTINE_SUCCESS,
-        });
-      });
+
     try {
+      firestore()
+        .collection('routineCollection')
+        .add({
+          title,
+          description,
+          userId: uid,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+          console.log('New Routine added!');
+          dispatch({
+            type: ADD_ROUTINE_SUCCESS,
+          });
+          let routine = store.getState().routine.routineData;
+          routine.push({
+            title,
+            description,
+            userId: uid,
+            createdAt: firestore.FieldValue.serverTimestamp(),
+          });
+          dispatch({
+            type: GET_ALL_ROUTINE_SUCCESS,
+            payload: routine,
+          });
+        });
     } catch (error) {
       dispatch({
         type: ADD_ROUTINE_FAILED,
@@ -40,24 +53,30 @@ export const addRoutine = ({title, description}, uid) => {
 };
 
 export const getAllRoutine = uid => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({
       type: GET_ALL_ROUTINE,
     });
     try {
-      database()
-        .ref('/users/' + uid)
-        .once('value')
+      await firestore()
+        .collection('routineCollection')
+        .get()
         .then(function(snapshot) {
-          var routineData = snapshot.val() && snapshot.val().routine;
-          console.log(routineData, 'sucess get from routine action');
+          let routineData = [];
+          snapshot.forEach(doc => {
+            if (doc.data().userId === uid) {
+              routineData.push({
+                ...doc.data(),
+                id: doc.id,
+              });
+            }
+          });
           dispatch({
             type: GET_ALL_ROUTINE_SUCCESS,
             payload: routineData,
           });
         })
         .catch(err => {
-          console.log(err, 'all routine get error');
           dispatch({
             type: GET_ALL_ROUTINE_FAILED,
           });

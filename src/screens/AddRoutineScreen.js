@@ -27,8 +27,8 @@ class AddRoutineScreen extends Component {
     super(props);
     this.state = {
       adding: false,
-      title: 't',
-      description: 'd',
+      title: '',
+      description: '',
     };
   }
 

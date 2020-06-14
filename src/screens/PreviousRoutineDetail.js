@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Image} from 'react-native';
 import {
   Container,
@@ -15,10 +16,18 @@ import {
   Right,
   Subtitle,
 } from 'native-base';
-export default class PreviousRoutineDetail extends Component {
+class PreviousRoutineDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   render() {
-    const {navigation, route} = this.props;
+    const {navigation, route, routines} = this.props;
     console.log(route.params.id);
+    let story = routines.filter(r => r.id === route.params.id)[0];
+    let {title, description, createdAt} = story;
+    console.log(createdAt.toDate().toString());
+    let date = createdAt.toDate().toLocaleString();
     return (
       <Container>
         <Header>
@@ -39,8 +48,8 @@ export default class PreviousRoutineDetail extends Component {
               <Left>
                 {/* <Thumbnail source={{uri: 'Image URL'}} /> */}
                 <Body>
-                  <Text>NativeBase</Text>
-                  <Text note>April 15, 2016</Text>
+                  <Text>{title}</Text>
+                  <Text note>{date}</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -50,22 +59,7 @@ export default class PreviousRoutineDetail extends Component {
                   source={{uri: 'Image URL'}}
                   style={{height: 200, width: 200, flex: 1}}
                 /> */}
-                <Text>
-                  Your text here text here text here text here text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here text here Your
-                  text here text here text here text here text here text here
-                  text here text here text here text here text here text here
-                  text here text here text here text here text here text here
-                  text here text here text here text here text here Your text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here text here text
-                  here text here text here text here text here Your text here
-                  text here text here text here text here text here text here
-                  text here text here text here text here text here text here
-                </Text>
+                <Text>{description}</Text>
               </Body>
             </CardItem>
             <CardItem>
@@ -75,11 +69,11 @@ export default class PreviousRoutineDetail extends Component {
                   <Text>06/06/2020</Text>
                 </Button>
               </Left> */}
-              <Right>
+              {/* <Right>
                 <Button delete small>
                   <Text>Delete</Text>
                 </Button>
-              </Right>
+              </Right> */}
             </CardItem>
           </Card>
         </Content>
@@ -87,3 +81,9 @@ export default class PreviousRoutineDetail extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    routines: state.routine.routineData,
+  };
+};
+export default connect(mapStateToProps)(PreviousRoutineDetail);
